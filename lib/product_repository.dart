@@ -50,7 +50,7 @@ class ProductRepository {
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
         List<String> categories = data.map((item) => item.toString()).toList();
-        categories.insert(0, 'all'); // Add 'all' category
+        categories.insert(0, 'all'); 
         return categories;
       } else {
         throw Exception('Failed to load categories: ${response.statusCode}');

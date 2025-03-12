@@ -23,7 +23,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     try {
       final products = await repository.fetchProducts();
       emit(ProductsLoaded(products));
-      // Also update the categories state to ensure UI consistency
       emit(CategoriesLoaded(categories, selectedCategory));
     } catch (e) {
       emit(ProductError(e.toString()));
@@ -42,7 +41,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     try {
       final products = await repository.fetchProductsByCategory(event.category);
       emit(ProductsLoaded(products));
-      // Important: Always emit updated category state after filtering
+      
       emit(CategoriesLoaded(categories, selectedCategory));
     } catch (e) {
       emit(ProductError(e.toString()));
@@ -57,7 +56,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       categories = await repository.fetchCategories();
       emit(CategoriesLoaded(categories, selectedCategory));
     } catch (e) {
-      // Just keep the default categories if there's an error
+      
       emit(CategoriesLoaded(categories, selectedCategory));
     }
   }

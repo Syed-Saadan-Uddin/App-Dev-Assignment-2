@@ -20,7 +20,7 @@ class _ProductsScreenState extends State<ProductsScreen> with SingleTickerProvid
   void initState() {
     super.initState();
     
-    // Initialize shimmer animation controller
+    
     _shimmerController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1500),
@@ -56,7 +56,7 @@ class _ProductsScreenState extends State<ProductsScreen> with SingleTickerProvid
       ),
       body: Column(
         children: [
-          // Category filter widget using BLoC with better state handling
+          
           BlocConsumer<ProductBloc, ProductState>(
             listenWhen: (previous, current) => current is CategoriesLoaded,
             listener: (context, state) {
@@ -84,7 +84,7 @@ class _ProductsScreenState extends State<ProductsScreen> with SingleTickerProvid
               );
             },
           ),
-          // Products grid using BLoC
+          
           Expanded(
             child: BlocBuilder<ProductBloc, ProductState>(
               buildWhen: (previous, current) => 
@@ -177,7 +177,7 @@ class _ProductsScreenState extends State<ProductsScreen> with SingleTickerProvid
   }
 }
 
-// Enhanced CategoryFilter with better visual feedback
+
 class CategoryFilter extends StatelessWidget {
   final List<String> categories;
   final String selectedCategory;
@@ -263,7 +263,7 @@ class ShimmerProductGrid extends StatelessWidget {
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
       ),
-      itemCount: 6, // Show 6 shimmer placeholders
+      itemCount: 6, 
       itemBuilder: (context, index) {
         return AnimatedBuilder(
           animation: shimmerController,
@@ -294,7 +294,7 @@ class ShimmerPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    // Background color (darker gray)
+    
     final Paint backgroundPaint = Paint()
       ..color = Colors.grey.shade500
       ..style = PaintingStyle.fill;
@@ -307,19 +307,19 @@ class ShimmerPainter extends CustomPainter {
       backgroundPaint,
     );
     
-    // Shimmer gradient
-    final double gradientWidth = size.width * 0.6; // Width of gradient
+    
+    final double gradientWidth = size.width * 0.6; 
     final double startX = -gradientWidth + (size.width + 2 * gradientWidth) * animationValue;
     
-    // Create a diagonal gradient path
+    
     final Path gradientPath = Path()
       ..moveTo(startX, 0)
       ..lineTo(startX + gradientWidth, 0)
-      ..lineTo(startX + gradientWidth - size.height * 0.2, size.height) // Diagonal offset
+      ..lineTo(startX + gradientWidth - size.height * 0.2, size.height) 
       ..lineTo(startX - size.height * 0.2, size.height)
       ..close();
     
-    // Create a gradient shader with lighter grays
+    
     final Paint gradientPaint = Paint()
       ..shader = LinearGradient(
         begin: Alignment.topLeft,
@@ -335,7 +335,7 @@ class ShimmerPainter extends CustomPainter {
       ).createShader(Rect.fromLTWH(startX, 0, gradientWidth, size.height))
       ..style = PaintingStyle.fill;
     
-    // Apply clip to keep the gradient within the rounded rectangle
+    
     canvas.save();
     canvas.clipRRect(
       RRect.fromRectAndRadius(
@@ -344,7 +344,7 @@ class ShimmerPainter extends CustomPainter {
       ),
     );
     
-    // Draw the diagonal gradient
+    
     canvas.drawPath(gradientPath, gradientPaint);
     canvas.restore();
   }
@@ -472,7 +472,7 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Create a scale animation for the entire detail screen
+    
     return TweenAnimationBuilder<double>(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
@@ -490,7 +490,7 @@ class ProductDetailScreen extends StatelessWidget {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () {
-              // Custom back navigation with animation
+              
               Navigator.of(context).pop();
             },
           ),
